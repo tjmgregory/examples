@@ -12,7 +12,9 @@ async def screenshot_page(page: str | None = None):
     try:
         url = f"{page}"
         playwright = await async_playwright().start()
-        browser = await playwright.chromium.launch()
+        browser = await playwright.chromium.launch(args=[
+            '--single-process',
+        ])
         page = await browser.new_page()
         await page.goto(url)
         buffer = await page.screenshot()

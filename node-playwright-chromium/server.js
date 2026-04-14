@@ -16,7 +16,12 @@ const requestListener = function (request, response) {
         // Anonymous function to call Playwright
         (async () => {
             try {
-                const browser = await chromium.launch({headless: true});
+                const browser = await chromium.launch({
+                    headless: true,
+                    args: [
+                        '--single-process',
+                    ],
+                });
                 const page = await browser.newPage();
                 await page.goto(remote);
                 const buffer = await page.screenshot();
